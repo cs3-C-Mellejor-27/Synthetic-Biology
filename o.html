@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog/News</title>
+</head>
+
+<body>
+ <section class="header">
+        <nav>
+           
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="page1.html">HOME</a></li>
+                    <li><a href="about you.html">Social Implications</a></li>
+           
+                    <li><a href="campuses.html">Case Studies</a></li>
+					<li><a href="o.html">Blog/News</a></li>
+                    <li><a href="signin.html">SIGN IN</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+  <main class="gallery">
+    <section class="photo" onclick="openPopup('ADD DESCRIPTION');">
+      <img src="SB.jpg" alt="">
+      <div class="info">
+        <h3>Expert Opinions</h3>
+        <p>Experts highlight that recent advancements in synthetic biology, including programmable living materials, synthetic organoids, and synthetic genomes, are revolutionizing medical research, bioenergy, and biotechnology, offering unprecedented opportunities for innovation and disease treatment
+</p>
+      </div>
+    </section>
+
+    <section class="photo" onclick="openPopup('recent1.jpg', 'Recent Advancements', 'Philippine Science High School Caragra Region Campus is committed to offering relevant secondary education with the goal of training students to become globally competitive Filipino leaders in science and technology.');">
+      <img src="recent1.jpg" alt="Photo 2">
+      <div class="info">
+        <h3>Recent Advancements</h3>
+        <p>Recent advancements in synthetic biology include the development of programmable living materials, more realistic synthetic human mini hearts, and a near-completed synthetic yeast genome with novel features for medical and biotechnological applications
+</p>
+      </div>
+    </section>
+
+    <section class="photo" onclick="openPopup('boom.jpg', 'Industry Trends', 'PSHS-CRC boasts state-of-the-art facilities designed to foster a conducive learning environment. Which includes advanced laboratories, well-equipped computer rooms, a library, and many more.');">
+      <img src="boom.jpg" alt="Photo 3">
+      <div class="info">
+        <h3>Industry Trends</h3>
+        <p> Current industry trends in synthetic biology include advancements in programmable living materials, realistic synthetic organoids, and the development of synthetic genomes, enhancing applications in medicine, bioenergy, and biotechnology
+</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="popup" id="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <img id="popupImage" src="" alt="Popup Image">
+    <div id="popupContent">
+      <h3 id="popupTitle"></h3>
+      <p id="popupDescription"></p>
+      <div class="popup-nav">
+        <button onclick="navigate(-1)" class="nav-button">Previous</button>
+        <button onclick="navigate(1)" class="nav-button">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  
+
+    function openPopup(image, title, description) {
+      currentIndex = imagesSets[titles.indexOf(title)].indexOf(image);
+      document.getElementById('popupImage').src = image;
+      document.getElementById('popupTitle').textContent = title;
+      document.getElementById('popupDescription').textContent = description;
+      document.getElementById('popup').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      document.addEventListener('keydown', handleKeyPress);
+
+      document.getElementById('popupImage').src = imagesSets[titles.indexOf(title)][currentIndex];
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.body.style.overflow = 'auto';
+
+      document.removeEventListener('keydown', handleKeyPress);
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'ArrowLeft') {
+        navigate(-1);
+      } else if (e.key === 'ArrowRight') {
+        navigate(1);
+      }
+    }
+
+    function navigate(offset) {
+      currentIndex = (currentIndex + offset + imagesSets[titles.indexOf(document.getElementById('popupTitle').textContent)].length) % imagesSets[titles.indexOf(document.getElementById('popupTitle').textContent)].length;
+      document.getElementById('popupImage').src = imagesSets[titles.indexOf(document.getElementById('popupTitle').textContent)][currentIndex];
+      document.getElementById('popupTitle').textContent = titles[titles.indexOf(document.getElementById('popupTitle').textContent)];
+      document.getElementById('popupDescription').textContent = descriptions[titles.indexOf(document.getElementById('popupTitle').textContent)][currentIndex];
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(rgba(26, 33, 52, 0.6), rgba(26, 33, 52, 0.6)), url(0a77ea_f70ef4f632bb4db29ee57c0250994858~mv2.GIF);
+      background-size: cover;
+      background-position: center;
+      height: 640px;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    header {
+      background-color: #282566;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul {
+      display: flex;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 15px;
+      padding: 0;
+      margin: 0;
+      color: white;
+      transition: .4s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100vh;
+      padding: 0 50px;
+    }
+
+    .photo {
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.5s, opacity 0.5s;
+      position: relative;
+      width: calc(33.333% - 50px);
+      box-sizing: border-box;
+      overflow: visible;
+      /* Allow the content to overflow */
+    }
+
+    .photo:hover {
+      transform: scale(1.1) translateY(-5%);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 80%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 1s, opacity 0.5s;
+    }
+
+    .photo:hover img {
+      transform: translateY(0);
+    }
+
+    .info {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 10px;
+      opacity: 0;
+      transition: opacity 0.5s;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: visible;
+    }
+
+    .photo:hover .info {
+      opacity: 1;
+    }
+
+    .info h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 1.5em;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    .info p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .info:hover h3 {
+      color: #00f;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup img {
+      width: auto;
+      height: auto;
+      max-width: 80%;
+      max-height: 80%;
+      margin: auto;
+      display: block;
+    }
+
+    .popup .close {
+      color: #fff;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    #popupContent {
+      color: rgba(255, 255, 255, 0.8);
+      padding-left: 100px;
+    }
+
+    #popupContent h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 1.5em;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    #popupContent p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .popup-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .nav-button {
+      background-color: #2a5775;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.4s;
+    }
+
+    .nav-button:hover {
+      background-color: #14405d;
+    }
+  </style>
+
+</body>
+
+</html>
